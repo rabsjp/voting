@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+  
+
+    <table class="table-condensed" style="width:800px; margin-top:20px;">
+
+
+        <tr><td> Votes in favor / opposed </td><td>{{votes_accept}} / {{votes_reject}}</td> <td> Policy Outcome: </td><td> <b> {{ proposal_accept}} </b> </td> </tr>
+        <tr> <th>  </th></tr><tr> <th>  </th></tr><tr> <th>  </th></tr>
+
+        <tr><td> Your  price </td> <td> {{player.bid}}  </td> <td> </td><td>  </td> </tr>
+
+        <tr><td> Market price </td> <td> {{group.price}}  </td> <td> Trading outcome: </td><td> {{my_trading_word}}   </td> </tr>
+
+        <tr> <th>  </th></tr>
+
+        <tr> <th>  </th></tr>
+        <tr> <th>  </th></tr>
+        <tr> <th>  </th></tr>
+        <tr> <th>  </th></tr>
+        <tr> <th>  </th></tr>
+          <tr> <th>  </th></tr>
+        <tr> <th>  </th></tr>
+        <tr> <th>  </th></tr><tr> <th>  </th></tr><tr> <th>  </th></tr>
+<tr> <th>  </th></tr><tr> <th>  </th></tr><tr> <th>  </th></tr>
+<tr> <th>  </th></tr><tr> <th>  </th></tr><tr> <th>  </th></tr>
+<tr> <th>  </th></tr><tr> <th>  </th></tr><tr> <th>  </th></tr>
+
+        <tr> <td> Change in cash holding +  N.shares x payout  + Policy benefit </td> <td> = Earnings </td> <td>  </td><td> </td></tr>
+        <tr> <td>  {{trading_profit}} &nbsp &nbsp   &nbsp  &nbsp&nbsp  &nbsp&nbsp &nbsp  &nbsp &nbsp&nbsp  &nbsp &nbsp &nbsp  &nbsp  &nbsp  &nbsp + {{ my_assets }} x {{ asset_value }}   &nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp &nbsp + {{ private_benefit}}   </td> <td> = {{ player.payoff }} </td> <td>  </td><td> </td></tr>
+
+
+    </table>
+    <p></p>
+
+    {% next_button %}
+
+
+{% endblock %}

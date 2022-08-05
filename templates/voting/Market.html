@@ -1,0 +1,82 @@
+{% extends "voting/Basetf.html" %}
+
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div id="wrap">
+
+    <p >
+Your payoff depends on the number of shares held and the policy outcome:
+</p>
+
+    </p>
+
+    <table class="table-condensed" style="width:400px; margin-top:20px;margin-left:200px;text-align:center">
+        <tr> <td> Number of shares </td> <td> Rejected </td> <td> Accepted </td> </tr>
+        <tr><td> 0  </td> <td> 0 </td> <td> {{private_benefit}} </td> </tr>
+        <tr><td> 1  </td> <td> {{value_1}} </td>   <td> {{net_private_benefit}} </td> </tr>
+        <tr><td> 2  </td>  <td> {{ value_2 }} </td> <td> {{net_private_benefit_2}} </td> </tr>
+
+   </table>
+
+
+    <div id="placeholder">
+{% include "voting/table_parameters.html" %}
+</div>
+
+<div id="right_col">
+
+
+<table>
+  <tr>
+    <td> <font color="blue"> Your price </font> </td>
+  </tr>
+  <tr>
+    <td>{% formfield player.bid %}</td>
+    </tr>
+</table>
+
+ {% next_button %}
+
+</div>
+
+
+</div>
+
+<div id="footer">
+
+</div>
+
+
+<div id="footer2">
+<p> <strong> Time left</strong> </p>
+<p id="mycounter"> </p>
+</div>
+
+{% block scripts %}
+<script type="text/javascript">
+i = 180;
+function onTimer() {
+  document.getElementById('mycounter').innerHTML = i;
+  i--;
+  if (i < 0) {
+    alert('Your time is up. Make a choice!');
+  }
+  else {
+    setTimeout(onTimer, 1000);
+  }
+}
+
+onTimer()
+</script>
+
+
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block content %}
+
+<p>
+Welcome, and thank you for participating!
+</p>
+
+<p>
+From now until the end of the experiment,
+please turn off your phone and do not communicate with other participants.
+If you have questions, please let us know and we will respond as soon possible.
+</p>
+
+<p>
+During the experiment you can earn points, which can be converted to dollars at the rate specified
+    by the experimenter. This sum will be paid electronically at the end of the experiment.
+You are guaranteed a show up fee of 10.00 if you show up and complete the session, but you can earn more depending on your decisions.
+</p>
+
+<p>
+If you finished reading, please press next.
+</p>
+
+    {% next_button %}
+
+{% endblock %}

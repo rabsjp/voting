@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}You have sold your share. Since you do not hold any shares, you cannot vote on the policy. {% endblock %}
+
+{% block content %}
+
+    <table class="table-condensed" style="width:700px; margin-top:20px;margin-left:50px;text-align:center">
+
+        <tr><td> Your  price </td> <td> Market price   </td> <td> Trading outcome</td> <td>  </td> </tr>
+                <tr><td> {{player.bid}}  </td> <td> {{group.price}}   </td> <td> {{my_trading_word}}</td> <td>  </td> </tr>
+
+        <tr><td>  </td> <td>   </td> <td> </td> <td>  </td> </tr>
+
+        <tr><td>  </td> <td>   </td> <td> </td> <td>  </td> </tr>
+        <tr><td>  </td> <td>   </td> <td> </td> <td>  </td> </tr>
+        <tr><td>  </td> <td>   </td> <td> </td> <td>  </td> </tr>
+        <tr><td>  </td> <td>   </td> <td> </td> <td>  </td> </tr>
+        <tr><td>  </td> <td>   </td> <td> </td> <td>  </td> </tr>
+
+    </table>
+
+        <p> Shareholders are voting on the proposal, please click Next to continue. </p>
+{% next_button %}
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Final Page
+{% endblock %}
+
+{% block content %}
+
+<p>
+Congratulations! You have completed the experiment. You earned {{ payoff }} in this experiment.
+    You will be paid shortly, based on the information provided.
+Please press next to end the experiment.
+</p>
+
+    {% next_button %}
+
+{% endblock %}
