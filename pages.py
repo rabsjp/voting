@@ -13,7 +13,10 @@ class Introduction(Page):
 
 class News(Page):
     def is_displayed(self):
-        return self.round_number % (self.subsession.subperiods()+1) == 0
+        return self.round_number % (self.subsession.subperiods()+1) == 0  or self.round_number == 1
+    """Description of the game: How to play and returns expected"""
+
+    pass
     """Description of the game: How to play and returns expected"""
     pass
 
