@@ -61,7 +61,9 @@ def parse_config(config_file):
             'tau': c(row['tau']),
             'pay_round': int(row['pay_round']),
             'players_per_group': int(row['players_per_group']),
-            'voting_stage': True if row['voting_stage'] == 'TRUE' else False
+            'voting_stage': True if row['voting_stage'] == 'TRUE' else False,
+            'cambio': int(row['cambio'])
+
         })
     return rounds
 
@@ -97,6 +99,9 @@ class Subsession(BaseSubsession):
     def voting_stage(self):
         return parse_config(self.session.config['config_file'])[self.round_number - 1]['voting_stage']
 
+    def cambio(self):
+        return parse_config(self.session.config['config_file'])[self.round_number - 1]['cambio']
+
     def subperiods(self):
         return parse_config(self.session.config['config_file'])[self.round_number - 1]['subperiods']
 
@@ -117,16 +122,25 @@ class Subsession(BaseSubsession):
             return
 
         self.do_grouping()
-
-        if self.uniforme():
-            for p in self.get_players():
-                p.lama = (p.id_in_group-1)/Constants.upper_n
+        if self.round_number <= self.cambio():
+            if self.uniforme():
+                for p in self.get_players():
+                    p.lama = (p.id_in_group-1)/Constants.upper_n
+            else:
+                for p in self.get_players():
+                    p.lama = 0
+                    if p.id_in_group<6:
+                        p.lama = 1
         else:
-            for p in self.get_players():
-                p.lama = 0
-                if p.id_in_group<6:
+            dict = {1: 11, 2: 10, 3: 9, 4: 8, 5: 7, 6: 4, 7: 5, 8: 6, 9: 3, 10: 2, 11: 1}
+            if self.uniforme():
+                for p in self.get_players():
+                    p.lama = (dict[p.id_in_group] - 1) / Constants.upper_n
+            else:
+                for p in self.get_players():
                     p.lama = 1
-
+                    if p.id_in_group < 7:
+                        p.lama = 0
     @property
     def config(self):
         try:
@@ -139,6 +153,8 @@ class Group(BaseGroup):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     q = models.IntegerField()
     policy = models.IntegerField()
+    costo = models.IntegerField()
+    uniforme = models.BooleanField()
 
     def clearing_market(self):
         self.q = 0
@@ -195,10 +211,15 @@ class Group(BaseGroup):
             if self.subsession.voting_stage() == False:
                 marca = float((self.subsession.endowment()+p.t)*self.subsession.tau())/float(self.subsession.h())
                 print(marca)
+
                 if self.subsession.endowment()+p.t > 0 and p.lama >= marca:
                     p.vote = 1
                 else:
                     p.vote = 0
+
+            if self.subsession.endowment()+p.t == 0:
+                p.vote = 0
+
 
         if sum([p.vote*(self.subsession.endowment()+p.t) for p in self.get_players()]) >= (self.subsession.players_per_group()+1)/2:
             self.policy = 1
@@ -210,6 +231,9 @@ class Group(BaseGroup):
             if self.subsession.round_number != self.subsession.pay_round():
                 p.participant.payoff -= p.payoff
 
+        self.uniforme = self.subsession.uniforme()
+        self.costo = int(self.subsession.tau())
+
 class Player(BasePlayer):
 
     t = models.IntegerField()
@@ -218,7 +242,7 @@ class Player(BasePlayer):
             [0, 'Reject the policy'],
             [1, 'Accept the policy'],
         ],
-        default=0,
+        default=None,
         widget=widgets.RadioSelect
     )
 
