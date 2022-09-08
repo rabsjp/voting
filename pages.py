@@ -163,7 +163,7 @@ class Survey(Page):
         return self.round_number == self.subsession.num_rounds()
 
     form_model = 'player'
-    form_fields = ['why_accept','other_accept','why_reject','other_reject']
+    form_fields = ['why_accept','other_accept','why_reject','other_reject','age', 'gender','major','gpa','political']
 
 class Payment(Page):
 
