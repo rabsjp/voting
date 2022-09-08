@@ -156,6 +156,15 @@ class Results(Page):
         )
 
 
+
+class Survey(Page):
+
+    def is_displayed(self):
+        return self.round_number == self.subsession.num_rounds()
+
+    form_model = 'player'
+    form_fields = ['why_accept','other_accept','why_reject','other_reject']
+
 class Payment(Page):
 
     def is_displayed(self):
@@ -167,4 +176,5 @@ class Payment(Page):
         }
 
 
-page_sequence = [Introduction, News, Market, ResultsWaitPage1, Voting, Novoting, ResultsWaitPage2, Results, Payment]
+page_sequence = [Introduction, News, Market, ResultsWaitPage1, Voting, Novoting,
+                 ResultsWaitPage2, Results, Survey, Payment]

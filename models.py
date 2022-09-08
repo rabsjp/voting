@@ -249,3 +249,25 @@ class Player(BasePlayer):
     bid = models.DecimalField(max_digits=8, decimal_places=2, label="",min=0)#max= self.subsession.cash)
     ask = models.DecimalField(max_digits=8, decimal_places=2, label="", min=0)#,max=self.subsession.cash)
     lama = models.DecimalField(max_digits=8, decimal_places=2, label="",min=0)
+
+    why_accept = models.StringField(
+        choices=[['To help other participants ', 'To help other participants '],
+                 [' To increase my own earnings', ' To increase my own earnings'],
+                 ['To ensure fair payoffs', 'To ensure fair payoffs'],
+                 ['Other reason (specify bellow)', 'Other reason (specify bellow)']],
+        label='What is the main reason for you to ACCEPT the proposal?',
+        widget=widgets.RadioSelect,
+    )
+
+    other_accept = models.CharField(blank=True,label='Other reason for accepting')
+
+    why_reject = models.StringField(
+        choices=[['To help other participants ', 'To help other participants '], [' To increase my own earnings', ' To increase my own earnings'],
+                 ['To ensure fair payoffs', 'To ensure fair payoffs'], ['Other reason (specify bellow)', 'Other reason (specify bellow)']],
+        label='What is the main reason for you to REJECT the proposal?',
+        widget=widgets.RadioSelect,
+    )
+
+
+    other_reject = models.CharField(blank=True,label='Other reason for rejecting')
+
