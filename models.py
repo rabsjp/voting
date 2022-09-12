@@ -246,6 +246,6 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
-    bid = models.DecimalField(max_digits=8, decimal_places=2, label="",min=0)#max= self.subsession.cash)
-    ask = models.DecimalField(max_digits=8, decimal_places=2, label="", min=0)#,max=self.subsession.cash)
+    bid = models.DecimalField(max_digits=8, decimal_places=2, label="",min=1)#max= self.subsession.cash)
+    ask = models.DecimalField(max_digits=8, decimal_places=2, label="", min=1)#,max=self.subsession.cash)
     lama = models.DecimalField(max_digits=8, decimal_places=2, label="",min=0)
